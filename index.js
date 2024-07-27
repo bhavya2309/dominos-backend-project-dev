@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 // Order history routes
 app.use('/order-history', OrderHistoryRouter);
 // user login / signup routes
-app.use('/user', userRoute);
+app.use('/user', UserRouter);
 
 // Database connection
 createConnection()
