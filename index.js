@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import OrderHistoryRouter from './modules/order_history/routes/order_hist-routes.js';
 import { createConnection } from './shared/db/connection.js';
-import userRoute from './modules/users/user.route.js';
+import UserRouter from './modules/users/routes/user.route.js';
 
 dotenv.config();
 const app = express();
@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 // Order history routes
 app.use('/order-history', OrderHistoryRouter);
 // user login / signup routes
-app.use('/users', userRoute);
+app.use('/user', userRoute);
 
 // Database connection
 createConnection()
