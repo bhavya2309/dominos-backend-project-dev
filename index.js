@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import OrderHistoryRouter from './modules/order_history/routes/order_hist-routes.js';
 import { createConnection } from './shared/db/connection.js';
-import userRoute from './routes/user.route.js';
+import userRoute from './modules/users/user.route.js';
 
 dotenv.config();
 const app = express();
