@@ -1,22 +1,22 @@
-import express from 'express';
+// importing the userModel, this contains the user Schema
 import userModel from '../models/user.model.js';
 
-const router = express.Router();
-
-router.post('/signup', async (req, res) => {
+// function for signup
+export const userSignup = async (req, res) => {
   try {
     const { email, password, username } = req.body;
     const user = new userModel({ email, password, username });
     await user.save();
-    req.session.userId = user._id;
+    // req.session.userId = user._id;
     res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
-    console.error(error); // Log the error for debugging
+    console.error(error); 
     res.status(400).json({ message: 'Error creating user' });
   }
-});
+}
 
-router.post('/login', async (req, res) => {
+// function for login
+export const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await userModel.findOne({ email });
@@ -25,18 +25,19 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
     if (user.password === password) {
-      req.session.userId = user._id;
+      // req.session.userId = user._id;
       res.status(200).json({ message: 'Logged in successfully' });
     } else {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
   } catch (error) {
-    console.error(error); // Log the error for debugging
+    console.error(error); 
     res.status(400).json({ message: 'Error logging in' });
   }
-});
+}
 
-router.get('/logout', (req, res) => {
+// function for logout
+export const userLogout = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       res.status(400).json({ message: 'Error logging out' });
@@ -44,9 +45,10 @@ router.get('/logout', (req, res) => {
       res.status(200).json({ message: 'Logged out successfully' });
     }
   });
-});
+}
 
-router.get('/check-session', async (req, res) => {
+// function for checking the session
+export const checkSession = async (req, res) => {
   console.log('Session in check-session route:', req.session); // Log the session for debugging
   if (req.session.userId) {
     try {
@@ -63,6 +65,4 @@ router.get('/check-session', async (req, res) => {
   } else {
     res.status(401).json({ message: 'Not authenticated' });
   }
-});
-
-export default router;
+}
