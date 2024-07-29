@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import OrderHistoryRouter from './modules/order_history/routes/order_hist-routes.js';
 import { createConnection } from './shared/db/connection.js';
 import UserRouter from './modules/users/routes/user.route.js';
+import ProductsRouter from './modules/products/routes/products-routes.js'
+
 
 dotenv.config();
 const app = express();
@@ -16,6 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/order-history', OrderHistoryRouter);
 // user login / signup routes
 app.use('/user', UserRouter);
+//product 
+app.use('/products', ProductsRouter);
+
 
 // Database connection
 createConnection()
